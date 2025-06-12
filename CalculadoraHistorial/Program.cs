@@ -1,12 +1,14 @@
 ﻿using espacioCalculadora;
 
-int num = 0;
+int num = 0, contadora = 1;
 double numero;
 string opcion, opcion_numero;
 Calculadora miCalculadora = new Calculadora();
 List<Operacion> TipoOperacion = new List<Operacion>();
+double resultadoAnterior = 0;
 do
 {
+    Operacion historial = new Operacion();
     Console.WriteLine("----------------------------MENU----------------------------");
     Console.WriteLine("1-Sumar");
     Console.WriteLine("2-Restar");
@@ -30,6 +32,7 @@ do
 
     Console.WriteLine("Ingresa cualquier numero");
     opcion_numero = Console.ReadLine();
+    contadora++;
 
     while (!double.TryParse(opcion_numero, out numero))
     {
@@ -41,22 +44,45 @@ do
     {
         case 1:
 
-            miCalculadora.Sumar(numero);
+            resultadoAnterior = miCalculadora.Sumar(numero);
+
+            historial.OperacionTipo = Operacion.TipoOperacion.Suma;
 
             break;
 
         case 2:
-            miCalculadora.Restar(numero);
+            resultadoAnterior = miCalculadora.Restar(numero);
+
+            historial.OperacionTipo = Operacion.TipoOperacion.Resta;
+
             break;
 
         case 3:
-            miCalculadora.Multiplicar(numero);
+            resultadoAnterior = miCalculadora.Multiplicar(numero);
+
+            historial.OperacionTipo = Operacion.TipoOperacion.Multiplicacion;
+
             break;
 
         case 4:
-            miCalculadora.Dividir(numero);
+            resultadoAnterior = miCalculadora.Dividir(numero);
+
+            historial.OperacionTipo = Operacion.TipoOperacion.Division;
+            
             break;
 
     }
+
+
+
+    historial.resultado_anterior = resultadoAnterior;
+    if (contadora >= 2)
+    {
+        historial.nuevo_valor = numero;
+    }
+
+
+
+
 
 } while (num != 0);

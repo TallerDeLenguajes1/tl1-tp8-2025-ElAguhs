@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using System.Xml.Schema;
 using espacioCalculadora;
 
 namespace espacioCalculadora
@@ -12,32 +13,36 @@ namespace espacioCalculadora
             get => valor;
         }
 
-        public void Sumar(double termino)
+        public double Sumar(double termino)
         {
             valor += termino;
             Console.WriteLine(valor);
+            return valor;
         }
-        public void Restar(double termino)
+        public double Restar(double termino)
         {
             valor -= termino;
             Console.WriteLine(valor);
+            return valor;
         }
-        public void Multiplicar(double termino)
+        public double Multiplicar(double termino)
         {
             valor *= termino;
             Console.WriteLine(valor);
+            return valor;
         }
-        public void Dividir(double termino)
+        public double Dividir(double termino)
         {
             while (termino == 0)
             {
                 Console.WriteLine("disculpa maestro, no se puede dividir en 0");
-                return;
+                return termino;
 
             }
 
             valor /= termino;
             Console.WriteLine(valor);
+            return valor;
 
 
         }
@@ -55,19 +60,31 @@ namespace espacioCalculadora
 
         private double nuevoValor;
 
-        private TipoOperacion opearcion;
+        private TipoOperacion operacion;
 
-        public double Resultado
+
+
+        public double resultado_anterior
         {
+            get => resultadoAnterior;
 
+            set => resultadoAnterior = value;
         }
 
-        public double NuevoValor
+        public double nuevo_valor
         {
             get => nuevoValor;
 
-            set => nuevoValor =;
+            set => nuevoValor = value;
         }
+
+        public TipoOperacion OperacionTipo
+        {
+            get => operacion;
+
+            set => operacion = value;
+        }
+
 
         public enum TipoOperacion
         {
@@ -77,6 +94,7 @@ namespace espacioCalculadora
             Division,
             Limpiar
         }
+
     }
 
 }
